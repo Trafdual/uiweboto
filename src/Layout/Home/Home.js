@@ -8,7 +8,6 @@ import DangKyChuXe from '../Home/DangKyChuXe/DangKyChuXe';
 function Home() {
   const [userData, setUserData] = useState(null);
   const [selectedBlogId, setSelectedBlogId] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('userId'));
@@ -31,7 +30,7 @@ function Home() {
               !selectedBlogId ? (
                 <CarRentalList onSelectBlog={(id) => setSelectedBlogId(id)} />
               ) : (
-                <CarDetails id={selectedBlogId} />
+                <CarDetails id={selectedBlogId} useId={userData?.user?._id}/>
               )
             }
           />

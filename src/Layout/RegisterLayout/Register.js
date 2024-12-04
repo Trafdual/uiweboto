@@ -73,7 +73,7 @@ function Register () {
             'Đăng ký người dùng thành công. Nhấn OK để về trang đăng nhập.'
           )
           if (confirmed) {
-            navigate('/login')
+            navigate('/')
           }
         }
       } catch (error) {
