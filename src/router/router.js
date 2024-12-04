@@ -1,15 +1,17 @@
 import { Register } from '../Layout/RegisterLayout'
-import { Logintong } from '../Layout/LoginLayout'
-import { Login } from '../Layout/LoginLayout/Login'
-import { User } from '../Layout/UserLayout'
-import { Admin } from '../Layout/AdminLayout'
+import { Home } from '../Layout/Home'
+
+import DangKyChuXe from '../Layout/Home/DangKyChuXe/DangKyChuXe'
+import { HomeAdmin } from '../Layout/AdminLayout'
 
 const publicRoutes = [
-  { path: '/', component: Logintong, layout: null },
+  { path: '/', component: Home, layout: null },
   { path: '/register', component: Register, layout: null },
-  { path: '/login', component: Login, layout: null },
-  { path: '/user', component: User, layout: null },
-  { path: '/admin', component: Admin, layout: null }
+  { path: '/user', component: Home},
+  { path: '/admin', component: HomeAdmin, layout: null },
+  { path: '/dangkychuxe', component: DangKyChuXe},
+
+
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }
