@@ -1,82 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import Login from '../../Login/Login';
-import './Header.scss';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import Login from '../../Login/Login'
+import './Header.scss'
+import { useLocation, useNavigate } from 'react-router-dom'
+import ModalLichDat from './ModalLichDat'
 
-
-
-
-function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalLichDat,setIsModalLichDat] =useState(false)
-  const [userData, setUserData] = useState(null);
-  const location = useLocation();
-  const navigate = useNavigate();
+function Header () {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalLichDat, setIsModalLichDat] = useState(false)
+  const [userData, setUserData] = useState(null)
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const user = location.state?.user;
+    const user = location.state?.user
     if (user) {
-      setUserData(user);
+      setUserData(user)
     }
-  }, [location.state]);
+  }, [location.state])
 
   const openModal = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const closeModal = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    setUserData(null);
-    window.location.href = '/';
-  };
+    localStorage.removeItem('user')
+    setUserData(null)
+    window.location.href = '/'
+  }
 
-  const handleLoginSuccess = (user) => {
-    setUserData(user);
-    setIsModalOpen(false);
-  };
+  const handleLoginSuccess = user => {
+    setUserData(user)
+    setIsModalOpen(false)
+  }
 
   const handleBecomeCarOwner = () => {
     if (!userData) {
-      openModal();
+      openModal()
     } else {
-      const userId = userData.user._id; 
+      const userId = userData.user._id
       navigate(`/dangkychuxe`, {
         state: {
-          userId,
-        },
-      });
+          userId
+        }
+      })
     }
-  };
+  }
 
   return (
-    <div className="header-container">
-      <div className="header-logo">
+    <div className='header-container'>
+      <div className='header-logo'>
         <span>MIOTO</span>
       </div>
-      <div className="header-links">
-        <a href="/">Về Mioto</a>
+      <div className='header-links'>
+        <a href='/'>Về Mioto</a>
         <button onClick={handleBecomeCarOwner}>Trở thành chủ xe</button>
-        <button onClick={()=>setIsModalLichDat(true)}>Lịch đặt</button>
+
         {!userData ? (
           <>
-            <a href="/register">Đăng ký</a>
-            <button className="login-button" onClick={openModal}>
+            <a href='/register'>Đăng ký</a>
+            <button className='login-button' onClick={openModal}>
               Đăng nhập
             </button>
           </>
         ) : (
           <>
+            <button onClick={() => setIsModalLichDat(true)}>Lịch đặt</button>
             <span>Welcome, {userData.user.hovaten}</span>
             {userData.role === 'admin' && (
-              <a href="/admin" className="admin-link">
+              <a href='/admin' className='admin-link'>
                 Quản lý
               </a>
             )}
-            <button className="login-button" onClick={handleLogout}>
+            <button className='login-button' onClick={handleLogout}>
               Đăng xuất
             </button>
           </>
@@ -84,17 +83,22 @@ function Header() {
       </div>
 
       {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-modal" onClick={closeModal}>
+        <div className='modal-overlay' onClick={closeModal}>
+          <div className='modal-content' onClick={e => e.stopPropagation()}>
+            <button className='close-modal' onClick={closeModal}>
               X
             </button>
             <Login onLoginSuccess={handleLoginSuccess} />
           </div>
         </div>
       )}
+      <ModalLichDat
+        isOpen={isModalLichDat}
+        OnClose={() => setIsModalLichDat(false)}
+        userData={userData}
+      />
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header
