@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DangKyChuXe.scss';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Header/Header';
 function DangKyChuXe() {
-    const location = useLocation();
-    const userId = location.state?.userId || null;
-
+    const [userId, setUserId] = useState(null);
     const [formData, setFormData] = useState({
         bienso: '',
         hangxe: '',
@@ -34,7 +31,16 @@ function DangKyChuXe() {
     console.log(userId)
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [userData, setUserData] = useState(null);
 
+    useEffect(() => {
+        const storedUserId = localStorage.getItem('userid');
+        if (storedUserId) {
+            setUserId(storedUserId);
+        } else {
+            setError('Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.');
+        }
+    }, []);
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -46,57 +52,57 @@ function DangKyChuXe() {
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files); // Chuyển FileList thành mảng
         setFormData({
-          ...formData,
-          image: files, // Lưu danh sách các file trong state
+            ...formData,
+            image: files, // Lưu danh sách các file trong state
         });
-      };
-      
+    };
 
-      const handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-      
+
         if (!userId) {
-          setError('Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.');
-          return;
+            setError('Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.');
+            return;
         }
-      
+
         const data = new FormData();
-      
+
         // Thêm tất cả các trường khác vào FormData
         for (const key in formData) {
-          if (formData.hasOwnProperty(key)) {
-            if (key === 'image') {
-              // Đảm bảo thêm từng hình ảnh vào FormData
-              formData.image.forEach((image) => {
-                data.append('image', image);
-              });
-            } else {
-              // Thêm các trường khác vào FormData
-              data.append(key, formData[key]);
+            if (formData.hasOwnProperty(key)) {
+                if (key === 'image') {
+                    // Đảm bảo thêm từng hình ảnh vào FormData
+                    formData.image.forEach((image) => {
+                        data.append('image', image);
+                    });
+                } else {
+                    // Thêm các trường khác vào FormData
+                    data.append(key, formData[key]);
+                }
             }
-          }
         }
-      
+
         try {
-          const response = await axios.post(
-            `http://localhost:8080/dangkyxetulai/${userId}`,
-            data,
-            {
-              headers: { 'Content-Type': 'multipart/form-data' },
-            }
-          );
-          setSuccess('Đăng ký chủ xe thành công!');
-          setError('');
+            const response = await axios.post(
+                `http://localhost:8080/dangkyxetulai/${userId}`,
+                data,
+                {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                }
+            );
+            setSuccess('Đăng ký chủ xe thành công!');
+            setError('');
         } catch (err) {
-          setError('Đăng ký thất bại, vui lòng thử lại.');
-          setSuccess('');
+            setError('Đăng ký thất bại, vui lòng thử lại.');
+            setSuccess('');
         }
-      };
-      
+    };
+
 
     return (
         <div className="dangkychuxe-container">
-            <Header />
+           
 
             {error && <div className="error-message">{error}</div>}
             {success && <div className="success-message">{success}</div>}

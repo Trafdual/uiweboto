@@ -44,6 +44,7 @@ function Login({ onLoginSuccess }) {
 
         if (response.ok) {
           const data = await response.json();
+          localStorage.setItem('userid', data.user._id);
           if (data.role === 'admin') {
             navigate('/admin');
           } else if (data.role === 'user') {

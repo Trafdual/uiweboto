@@ -29,9 +29,9 @@ function Header() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.clear(); 
     setUserData(null);
-    window.location.href = '/';
+    navigate('/');
   };
 
   const handleLoginSuccess = (user) => {
