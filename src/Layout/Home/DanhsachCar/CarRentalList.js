@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CarRentalList.scss';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
 
-function CarRentalList({onSelectBlog}) {
+function CarRentalList({ onSelectBlog }) {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,21 +32,31 @@ function CarRentalList({onSelectBlog}) {
       <div className="car-grid">
         {cars.map((car) => (
           <div key={car._id} className="car-card">
-            <img src={car.image} alt={car.mauxe} className="car-image" />
+
+            <div className="car-image-container">
+              <img src={car.image} alt={car.mauxe} className="car-image" />
+              <div className="car-badge">Giảm {car.giamgia}%</div>
+              <div className="car-datxe">Đặt xe nhanh</div>
+            </div>
             <div className="car-details">
-              <h3>{car.mauxe}</h3>
-              <p>Năm sản xuất: {car.namsanxuat}</p>
-              <p>Truyền động: {car.truyendong}</p>
-              <p>Loại xe: {car.loaixe}</p>
-              <p>Giá cho thuê: {car.giachothue.toLocaleString()} VNĐ</p>
-              <p>Địa chỉ xe: {car.diachixe}</p>
-              <p>Giao tận nơi: {car.giaotannoi ? 'Có' : 'Không'}</p>
-              <Button
-                 onClick={() => onSelectBlog(car._id)}
-                className="details-button"
-              >
-                Xem chi tiết
-              </Button>
+              <div className='car-theloai'>
+                <div className="car-theloai1">{car.truyendong}</div>
+                <div className="car-theloai2">{car.loaixe}</div>
+              </div>
+              <h3 className="car-name">{car.hangxe} {car.mauxe}</h3>
+              <p className="car-location">📍 {car.diachixe}</p>
+              <p className="car-price">
+                <span className="old-price">2222222K</span>
+                <span className="new-price">{car.giachothue}đ / ngày</span>
+              </p>
+              <div className="car-footer">
+                <button
+                  onClick={() => onSelectBlog(car._id)}
+                  className="details-button"
+                >
+                  Xem chi tiết
+                </button>
+              </div>
             </div>
           </div>
         ))}

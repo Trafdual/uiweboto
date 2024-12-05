@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DangKyChuXe.scss';
 import axios from 'axios';
-import Header from '../Header/Header';
 function DangKyChuXe() {
     const [userId, setUserId] = useState(null);
     const [formData, setFormData] = useState({
@@ -31,7 +30,6 @@ function DangKyChuXe() {
     console.log(userId)
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const storedUserId = localStorage.getItem('userid');
@@ -132,7 +130,7 @@ function DangKyChuXe() {
                     </label>
 
                     <label>
-                        Màu xe:
+                        Mẫu xe:
                         <input
                             type="text"
                             name="mauxe"
