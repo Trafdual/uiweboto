@@ -53,11 +53,11 @@ function Header () {
   return (
     <div className='header-container'>
       <div className='header-logo'>
-        <span>MIOTO</span>
+        <img src="mioto.png" alt="" />
       </div>
       <div className='header-links'>
         <a href='/'>Về Mioto</a>
-        <button onClick={handleBecomeCarOwner}>Trở thành chủ xe</button>
+        <button onClick={handleBecomeCarOwner} className='btnttchuxe'>Trở thành chủ xe</button>
 
         {!userData ? (
           <>

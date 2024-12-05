@@ -7,16 +7,45 @@ function ModalChoThue ({ isOpen, onClose, idxe, nguoidat, tongtien }) {
   const [bankCode, setBankCode] = useState('')
   const [language, setLanguage] = useState('')
   const [trangthai, setTrangthai] = useState('đặt cọc')
-  const [ngaynhan, setNgaynhan] = useState('') // Thêm state cho ngày nhận
-  const [ngaytra, setNgaytra] = useState('') // Thêm state cho ngày trả
+  const [ngaynhan, setNgaynhan] = useState('')
+  const [ngaytra, setNgaytra] = useState('')
+  const [soNgayThue, setSoNgayThue] = useState(0) // Số ngày thuê
+
+  // Tính số ngày thuê khi ngaynhan hoặc ngaytra thay đổi
+  useEffect(() => {
+    if (ngaynhan && ngaytra) {
+      const startDate = new Date(ngaynhan)
+      const endDate = new Date(ngaytra)
+
+      if (startDate <= endDate) {
+        const differenceInTime = endDate - startDate
+        const differenceInDays = Math.ceil(
+          differenceInTime / (1000 * 60 * 60 * 24)
+        )
+        setSoNgayThue(differenceInDays)
+      } else {
+        setSoNgayThue(0)
+      }
+    }
+  }, [ngaynhan, ngaytra])
 
   useEffect(() => {
-    if (trangthai === 'đặt cọc') {
-      setAmount(tongtien * 0.3) // 30% của tổng tiền
-    } else if (trangthai === 'thanh toán ngay') {
-      setAmount(tongtien) // Tổng tiền đầy đủ
+    if (soNgayThue > 0) {
+      if (trangthai === 'đặt cọc') {
+        const tien = tongtien * soNgayThue
+        const tienfull = tien - tien * 0.3
+        setAmount(tienfull) // 30% của tổng tiền
+      } else if (trangthai === 'thanh toán ngay') {
+        const tien = tongtien * soNgayThue
+        setAmount(tien) // Tổng tiền đầy đủ
+      }
     }
-  }, [trangthai, tongtien])
+    else{
+      setAmount(0)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trangthai, tongtien,soNgayThue])
 
   const handelThanhToan = async () => {
     try {

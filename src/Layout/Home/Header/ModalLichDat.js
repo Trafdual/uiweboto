@@ -36,8 +36,9 @@ function ModalLichDat ({ isOpen, onClose, userData }) {
               <th>Ngày trả</th>
               <th>Biển số</th>
               <th>Chủ xe</th>
-              <th>Đã thanh toán</th>
-              <th>Chưa thanh toán</th>
+              <th>Tổng tiền</th>
+              <th>Tiền cọc</th>
+              <th>Còn lại</th>
               <th>Trạng thái</th>
             </tr>
           </thead>
@@ -50,8 +51,9 @@ function ModalLichDat ({ isOpen, onClose, userData }) {
                   <td>{item.ngaytra}</td>
                   <td>{item.bienso}</td>
                   <td>{item.chuxe}</td>
-                  <td>{item.dathanhtoan}</td>
-                  <td>{item.chuathanhtoan}</td>
+                  <td>{item.tongtien.toLocaleString()} VNĐ</td>
+                  <td>{item.tiencoc.toLocaleString()} VNĐ</td>
+                  <td>{item.phaitra.toLocaleString()} VNĐ</td>
                   <td>{item.trangthai}</td>
                 </tr>
               ))
