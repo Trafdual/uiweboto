@@ -6,12 +6,10 @@ const HeaderAdmin = ({ setCurrentPage }) => {
   const navigate = useNavigate() // Dùng hook để điều hướng
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken')
-    sessionStorage.removeItem('authToken')
+    sessionStorage.clear(); 
+    navigate('/');
+  };
 
-    navigate('/')
-  }
-  
   return (
     <header className='header'>
       <div className='logo'>HELLO ADMIN</div>

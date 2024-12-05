@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import '../Home/DangKyChuXe/DangKyChuXe.scss'
 import axios from 'axios'
 function ThemXe () {
-  const user = JSON.parse(sessionStorage.getItem('user')) || null
+  const [userId, setUserId] = useState(null)
 
   const [formData, setFormData] = useState({
     bienso: '',
@@ -29,8 +30,20 @@ function ThemXe () {
     dieukhoan: '',
     image: null
   })
+  console.log(userId)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  useEffect(() => {
+    const storedUserId = JSON.parse(sessionStorage.getItem('user'))
+
+    if (storedUserId) {
+      setUserId(storedUserId)
+      console.log(storedUserId)
+
+    } else {
+      setError('Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.')
+    }
+  }, [sessionStorage.getItem('user')])
 
   const handleInputChange = e => {
     const { name, value, type, checked } = e.target
@@ -51,7 +64,7 @@ function ThemXe () {
   const handleSubmit = async e => {
     e.preventDefault()
 
-    if (!user) {
+    if (!userId) {
       setError('Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.')
       return
     }
@@ -61,10 +74,10 @@ function ThemXe () {
     // Thêm tất cả các trường khác vào FormData
     for (const key in formData) {
       if (formData.hasOwnProperty(key)) {
-        if (key === 'images') {
+        if (key === 'image') {
           // Đảm bảo thêm từng hình ảnh vào FormData
           formData.image.forEach(image => {
-            data.append('images', image)
+            data.append('image', image)
           })
         } else {
           // Thêm các trường khác vào FormData
@@ -74,17 +87,15 @@ function ThemXe () {
     }
 
     try {
-      const response = await axios.post(
-        `http://localhost:8080/postxe/${user.user._id}`,
+      await axios.post(
+        `http://localhost:8080/postxe/${userId.user._id}`,
         data,
         {
           headers: { 'Content-Type': 'multipart/form-data' }
         }
       )
-      if (response.ok) {
-        setSuccess('Đăng ký chủ xe thành công!')
-        setError('')
-      }
+      setSuccess('Đăng ký chủ xe thành công!')
+      setError('')
     } catch (err) {
       setError('Đăng ký thất bại, vui lòng thử lại.')
       setSuccess('')
@@ -121,7 +132,7 @@ function ThemXe () {
           </label>
 
           <label>
-            Màu xe:
+            Mẫu xe:
             <input
               type='text'
               name='mauxe'
@@ -131,16 +142,16 @@ function ThemXe () {
             />
           </label>
           <label>
-            Màu xe:
+            Loại xe:
             <select
               name='loaixe'
               value={formData.loaixe}
               onChange={handleInputChange}
               required
             >
-              <option value=''>Chọn loại xe</option>
-              <option value='Số tự động'>Xe Tự Lái</option>
-              <option value='Số sàn'>Số Có Người Lái</option>
+              <option value=''>Chọn Loại Xe</option>
+              <option value='xe tự lái'>Xe Tự Lái</option>
+              <option value='xe có người lái'>Xe Có Người Lái</option>
             </select>
           </label>
         </div>
@@ -358,7 +369,7 @@ function ThemXe () {
           Hình ảnh xe:
           <input
             type='file'
-            name='images'
+            name='image'
             onChange={handleFileChange}
             accept='image/*'
             multiple

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import './DangKyChuXe.scss'
 import axios from 'axios'
-
 function DangKyChuXe () {
   const [userId, setUserId] = useState(null)
   const [formData, setFormData] = useState({
@@ -34,15 +33,13 @@ function DangKyChuXe () {
 
   useEffect(() => {
     const storedUserId = JSON.parse(sessionStorage.getItem('user'))
+
     if (storedUserId) {
       setUserId(storedUserId)
     } else {
       setError('Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.')
     }
-  }, [sessionStorage.getItem('user')
-])
-  console.log(userId)
-
+  }, [sessionStorage.getItem('user')])
   const handleInputChange = e => {
     const { name, value, type, checked } = e.target
     setFormData({
@@ -86,7 +83,7 @@ function DangKyChuXe () {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/dangkyxetulai/${userId.user._id}`,
+        `http://localhost:8080/dangkyxetulai/${userId?.user?._id}`,
         data,
         {
           headers: { 'Content-Type': 'multipart/form-data' }
@@ -103,7 +100,6 @@ function DangKyChuXe () {
   }
 
   return (
-
     <div className='dangkychuxe-container'>
       {error && <div className='error-message'>{error}</div>}
       {success && <div className='success-message'>{success}</div>}
@@ -133,7 +129,7 @@ function DangKyChuXe () {
           </label>
 
           <label>
-            Màu xe:
+            Mẫu xe:
             <input
               type='text'
               name='mauxe'
