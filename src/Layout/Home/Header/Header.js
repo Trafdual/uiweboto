@@ -68,7 +68,7 @@ function Header () {
           </>
         ) : (
           <>
-            <button onClick={() => setIsModalLichDat(true)}>Lịch đặt</button>
+            {/* <button onClick={() => setIsModalLichDat(true)}>Lịch đặt</button> */}
             <span>Welcome, {userData.user.hovaten}</span>
             {userData.role === 'admin' && (
               <a href='/admin' className='admin-link'>

@@ -170,6 +170,11 @@ function CarDetails({ id, userId }) {
         isOpen={isModalChothue}
         onClose={() => setIsModalChothue(false)}
         tongtien={carDetails.giachothue}
+        giaotannoi={carDetails.giaotannoi}
+        quangduonggiaoxe={carDetails.quangduonggiaoxe}
+        phigiaoxe={carDetails.phigiaoxe}
+        mienphigxkm={carDetails.mienphigxkm}
+        giamgia={carDetails.giamgia}
       />
     </div>
   )

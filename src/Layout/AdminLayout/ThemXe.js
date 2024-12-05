@@ -39,7 +39,6 @@ function ThemXe () {
     if (storedUserId) {
       setUserId(storedUserId)
       console.log(storedUserId)
-
     } else {
       setError('Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.')
     }
@@ -95,6 +94,7 @@ function ThemXe () {
         }
       )
       setSuccess('Đăng ký chủ xe thành công!')
+      alert('Đăng ký chủ xe thành công!')
       setError('')
     } catch (err) {
       setError('Đăng ký thất bại, vui lòng thử lại.')
@@ -105,7 +105,7 @@ function ThemXe () {
   return (
     <div className='dangkychuxe-container'>
       {error && <div className='error-message'>{error}</div>}
-      {success && <div className='success-message'>{success}</div>}
+
       <form className='dangkychuxe-form' onSubmit={handleSubmit}>
         <h1 style={{ textAlign: 'center' }}>Đăng Ký Chủ Xe</h1>
         <div className='form-row'>
@@ -376,6 +376,7 @@ function ThemXe () {
             required
           />
         </label>
+        {success && <div className='success-message'>{success}</div>}
 
         <button type='submit'>Đăng ký</button>
       </form>

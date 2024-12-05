@@ -17,12 +17,13 @@ input[type="date"] {
     margin-top: 5px;
 }
 
-.language-select{
+.language-select {
     width: 300px;
     display: flex;
     gap: 10px;
     align-items: center;
-    select{
+
+    select {
         flex: 1;
         height: 30px;
         border-radius: 5px;
@@ -32,19 +33,36 @@ input[type="date"] {
 }
 
 
-.date{
+.date {
     display: flex;
     gap: 10px;
     align-items: center;
     margin-top: 10px;
 }
-.datecon{
+
+.datecon {
     display: flex;
     gap: 10px;
     align-items: start;
     flex-direction: column;
 }
-.bankcode-select{
+
+.bankcode-select {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.divinputtongtien {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 10px;
+}
+
+.chiphigiaoxe,
+.phuphi {
     display: flex;
     flex-direction: column;
     align-items: start;
