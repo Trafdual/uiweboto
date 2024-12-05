@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './CheckInScreen.scss';
+import './DanhSachXe.scss';
 
-const CheckInScreen = () => {
+const DanhSachXe = () => {
   const [sanList, setSanList] = useState([]);  // List of available vehicles
   const [checkinList, setCheckinList] = useState([]);  // List of checked-in vehicles
-  const [searchText, setSearchText] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   // Fetch list of available vehicles
@@ -15,27 +14,17 @@ const CheckInScreen = () => {
 
   const fetchSanList = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/getduyetxe');
+      const response = await axios.get('http://localhost:8080/getxechothue');
       setSanList(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  // Fetch list of checked-in vehicles
-  const fetchCheckinList = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/checkin');
-      setCheckinList(response.data);
-    } catch (error) {
-      console.error('Error fetching check-in data:', error);
-    }
-  };
-
   // Handle check-in action
   const handleCheckIn = async (id) => {
     try {
-      await axios.post(`http://localhost:8080/duyetxedangky/${id}`);
+      await axios.post(`http://localhost:8080/deletexechothue/${id}`);
       setModalVisible(true); // Show success modal
       fetchSanList(); // Refresh list after check-in
     } catch (error) {
@@ -45,20 +34,7 @@ const CheckInScreen = () => {
 
   return (
     <div className="checkin-screen">
-      <h2>Nhân Viên Check In</h2>
-      <div className="search-section">
-        <input
-          type="text"
-          placeholder="Tìm kiếm theo biển số"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
-        <button className="btn-checked-list">
-          Danh Sách Đã Check In
-        </button>
-      </div>
-
-      <h3>Danh Sách Xe Chờ Check-In</h3>
+      <h2>Danh Sách Xe Cho Thuê</h2>
       <table className="checkin-table">
         <thead>
           <tr>
@@ -91,7 +67,8 @@ const CheckInScreen = () => {
                 </td>
                 <td>
                   <button onClick={() => handleCheckIn(item._id)} className="btn-checkin">
-                    Check In
+                    Xóa
+
                   </button>
                 </td>
               </tr>
@@ -141,7 +118,7 @@ const CheckInScreen = () => {
       {modalVisible && (
         <div className="modal">
           <div className="modal-content">
-            <p>Check-in thành công!</p>
+            <p>Xóa xe thành công!</p>
             <button onClick={() => setModalVisible(false)}>Đóng</button>
           </div>
         </div>
@@ -150,4 +127,4 @@ const CheckInScreen = () => {
   );
 };
 
-export default CheckInScreen;
+export default DanhSachXe;

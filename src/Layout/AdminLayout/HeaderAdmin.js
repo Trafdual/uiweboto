@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import './HeaderAdmin.scss'
 
 const HeaderAdmin = ({ setCurrentPage }) => {
-  const navigate = useNavigate() // Dùng hook để điều hướng
+  const navigate = useNavigate() 
 
   const handleLogout = () => {
     sessionStorage.clear(); 
@@ -14,6 +14,9 @@ const HeaderAdmin = ({ setCurrentPage }) => {
     <header className='header'>
       <div className='logo'>HELLO ADMIN</div>
       <nav className='nav'>
+      <button className='nut' onClick={() => setCurrentPage('danhsachxe')}>
+         Danh sách Xe
+        </button>
       <button className='nut' onClick={() => setCurrentPage('themxe')}>
          Thêm Xe
         </button>
@@ -23,7 +26,7 @@ const HeaderAdmin = ({ setCurrentPage }) => {
         <button className='nut' onClick={handleLogout}>
           Đăng xuất
         </button>
-        <div className='user-info'>nhan vien 1</div>
+        
       </nav>
     </header>
   )

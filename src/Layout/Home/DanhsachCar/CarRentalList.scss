@@ -11,7 +11,7 @@
 
   .car-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding-left: 25%;
     padding-right: 25%;
@@ -26,7 +26,7 @@
     transition: transform 0.3s ease;
 
     &:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
     }
 
     .car-image-container {
@@ -61,7 +61,7 @@
       }
     }
 
-    .car-details {
+    .car-details1 {
       padding: 15px;
 
       .car-theloai {
@@ -87,7 +87,7 @@
       }
 
       .car-name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: bold;
         color: #333;
         margin-bottom: 10px;
@@ -102,8 +102,8 @@
       .car-price {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
+        justify-content: space-evenly;
+       
 
         .old-price {
           text-decoration: line-through;
@@ -114,7 +114,7 @@
         .new-price {
           color: #28a745;
           font-weight: bold;
-          font-size: 1rem;
+          font-size: 15px;
         }
       }
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import './DetailCar.scss'
 import ModalChoThue from './ModalChoThue'
-function CarDetails ({ id, userId }) {
+function CarDetails({ id, userId }) {
   const [isModalChothue, setIsModalChothue] = useState(false)
   const [carDetails, setCarDetails] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -36,9 +36,7 @@ function CarDetails ({ id, userId }) {
   return (
     <div className='car-details'>
       <div className='car-header'>
-        <h1 className='car-title'>
-          {carDetails.hangxe} {carDetails.mauxe} {carDetails.namsanxuat}
-        </h1>
+
         <div className='car-images'>
           {carDetails.image.map((imgSrc, index) => (
             <img
@@ -50,8 +48,19 @@ function CarDetails ({ id, userId }) {
           ))}
         </div>
       </div>
+      <h1 className='car-title'>
+        {carDetails.hangxe} {carDetails.mauxe} {carDetails.namsanxuat}
+      </h1>
+      <p className="car-location">📍 {carDetails.diachixe}</p>
+      <div className='car-theloai-chitiet'>
+        <div className="car-theloai1-chitiet">{carDetails.truyendong}</div>      <div className="car-theloai2-chitiet">{carDetails.loaixe}</div>
+        {carDetails.giaotannoi && (
+          <div className="car-theloai1-chitiet">Giao tận nơi</div>
+        )}
+      </div>
 
       <div className='car-info'>
+
         <h2>Thông tin xe</h2>
         <div className='info-grid'>
           <div>
@@ -70,15 +79,43 @@ function CarDetails ({ id, userId }) {
             <strong>Mức tiêu thụ nhiên liệu:</strong> {carDetails.muctieuthunl}{' '}
             L/100km
           </div>
-          <div>
-            <strong>Mô tả:</strong> {carDetails.mota}
-          </div>
+          
           <div>
             <strong>Tính năng:</strong> {carDetails.tinhnang.join(', ')}
           </div>
         </div>
       </div>
-
+      <div className='car-info'><div>
+            <strong>Mô tả:</strong> {carDetails.mota}
+          </div></div>
+      <div className="rental-documents-container">
+      <div className="section">
+        <h3 className="section-title">
+          Giấy tờ thuê xe <span className="tooltip">?</span>
+        </h3>
+        <div className="section-content">
+          <p className="note">
+            <i className="info-icon">ℹ️</i> Chọn 1 trong 2 hình thức
+          </p>
+          <div className="option">
+            <i className="document-icon">📄</i>
+            <span>GPLX (đối chiếu) & Passport (giữ lại)</span>
+          </div>
+          <div className="option">
+            <i className="document-icon">📄</i>
+            <span>GPLX (đối chiếu) & CCCD (đối chiếu VNeID)</span>
+          </div>
+        </div>
+      </div>
+      <div className="section">
+        <h3 className="section-title">
+          Tài sản thế chấp <span className="tooltip">?</span>
+        </h3>
+        <div className="section-content">
+          <p>Không yêu cầu khách thuê thế chấp Tiền mặt hoặc Xe máy</p>
+        </div>
+      </div>
+    </div>
       <div className='rental-info'>
         <h2>Giá cho thuê</h2>
         <p className='price'>
@@ -107,7 +144,7 @@ function CarDetails ({ id, userId }) {
       <div className='payment-summary'>
         <h2>Tóm tắt chi phí</h2>
         <p>
-          <strong>Giảm giá:</strong> 0 VNĐ
+          <strong>Giảm giá:</strong> {carDetails.giamgia}%
         </p>
         <p>
           <strong>Tổng công:</strong> {carDetails.giachothue.toLocaleString()}{' '}

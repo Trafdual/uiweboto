@@ -6,7 +6,27 @@
     max-width: 1200px;
     margin: auto;
   }
-  
+  .car-theloai-chitiet {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    .car-theloai1-chitiet {
+      padding: 5px 5px;
+      background-color: rgba(66, 217, 255, 0.226);
+      color: #000000;
+      font-size: 0.9rem;
+      border-radius: 5px;
+    }
+    .car-theloai2-chitiet {
+      padding: 5px 5px;
+      background-color: rgba(181, 255, 132, 0.233);
+      color: #000000;
+      font-size: 0.9rem;
+      border-radius: 5px;
+    }
+  }
   .car-header {
     display: flex;
     flex-direction: column;
@@ -79,5 +99,71 @@
   
   .rent-button:hover {
     background-color: #0056b3;
+  }
+  .rental-documents-container {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #333;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f56c00;
+    display: flex;
+    align-items: center;
+  }
+  
+  .tooltip {
+    margin-left: 5px;
+    font-size: 0.9rem;
+    background-color: #ddd;
+    color: #333;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .section-content {
+    background-color: #fff5f0;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #f56c00;
+    margin-top: 10px;
+  }
+  
+  .note {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .info-icon {
+    font-size: 1rem;
+    color: #888;
+    margin-right: 5px;
+  }
+  
+  .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .document-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #333;
   }
   

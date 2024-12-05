@@ -38,16 +38,16 @@ function CarRentalList({ onSelectBlog }) {
               <div className="car-badge">Giảm {car.giamgia}%</div>
               <div className="car-datxe">Đặt xe nhanh</div>
             </div>
-            <div className="car-details">
+            <div className="car-details1">
               <div className='car-theloai'>
-                <div className="car-theloai1">{car.truyendong}</div>
-                <div className="car-theloai2">{car.loaixe}</div>
+                <div className="car-theloai1">{car.truyendong}</div>      <div className="car-theloai2">{car.loaixe}</div>
+
               </div>
               <h3 className="car-name">{car.hangxe} {car.mauxe}</h3>
               <p className="car-location">📍 {car.diachixe}</p>
               <p className="car-price">
-                <span className="old-price">2222222K</span>
-                <span className="new-price">{car.giachothue}đ / ngày</span>
+                <span className="old-price">1.550K</span>
+                <span className="new-price">{car.giachothue.toLocaleString()}đ/ngày</span>
               </p>
               <div className="car-footer">
                 <button
