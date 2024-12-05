@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalLichDat,setIsModalLichDat] =useState(false)
   const [userData, setUserData] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ function Header() {
       <div className="header-links">
         <a href="/">Về Mioto</a>
         <button onClick={handleBecomeCarOwner}>Trở thành chủ xe</button>
+        <button onClick={()=>setIsModalLichDat(true)}>Lịch đặt</button>
         {!userData ? (
           <>
             <a href="/register">Đăng ký</a>
