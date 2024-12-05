@@ -10,24 +10,25 @@ function ModalLichDat ({ isOpen, onClose, userData }) {
       const response = await fetch(
         `http://localhost:8080/getlichdadat/${userId}`
       )
-      setData(response.data)
+      const data = await response.json()
+      setData(data)
     } catch (error) {
       console.error('Error fetching data', error)
     }
   }
-  useEffect(()=>{
-    fetchLichDat()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[userId])
+  useEffect(() => {
+    if (userId) {
+      fetchLichDat()
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId])
 
   return (
     <ModalBig isOpen={isOpen} onClose={onClose}>
       <div>
         <h2>Danh sách lịch đặt</h2>
-        <table
-          border='1'
-          className='custom-table'
-        >
+        <table border='1' className='custom-table'>
           <thead>
             <tr>
               <th>STT</th>

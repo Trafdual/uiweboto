@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from 'react'
 import './DetailCar.scss'
 import ModalChoThue from './ModalChoThue'
@@ -5,7 +6,7 @@ function CarDetails ({ id, userId }) {
   const [isModalChothue, setIsModalChothue] = useState(false)
   const [carDetails, setCarDetails] = useState(null)
   const [loading, setLoading] = useState(true)
-
+  console.log(userId)
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
@@ -112,7 +113,16 @@ function CarDetails ({ id, userId }) {
           <strong>Tổng công:</strong> {carDetails.giachothue.toLocaleString()}{' '}
           VNĐ
         </p>
-        <button className='rent-button' onClick={() => setIsModalChothue(true)}>
+        <button
+          className='rent-button'
+          onClick={() => {
+            if (userId) {
+              setIsModalChothue(true)
+            } else {
+              alert('Vui lòng đăng nhập để đặt hàng')
+            }
+          }}
+        >
           Chọn thuê
         </button>
       </div>

@@ -1,22 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import Login from '../../Login/Login'
 import './Header.scss'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ModalLichDat from './ModalLichDat'
 
 function Header () {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalLichDat, setIsModalLichDat] = useState(false)
   const [userData, setUserData] = useState(null)
-  const location = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const user = location.state?.user
+    const user = JSON.parse(sessionStorage.getItem('user'))
     if (user) {
       setUserData(user)
     }
-  }, [location.state])
+  }, [sessionStorage.getItem('user')])
 
   const openModal = () => {
     setIsModalOpen(true)
@@ -27,7 +27,7 @@ function Header () {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('user')
+    sessionStorage.removeItem('user')
     setUserData(null)
     window.location.href = '/'
   }
@@ -94,7 +94,7 @@ function Header () {
       )}
       <ModalLichDat
         isOpen={isModalLichDat}
-        OnClose={() => setIsModalLichDat(false)}
+        onClose={() => setIsModalLichDat(false)}
         userData={userData}
       />
     </div>

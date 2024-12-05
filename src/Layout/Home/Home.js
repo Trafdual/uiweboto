@@ -1,44 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Header from './Header/Header';
-import CarRentalList from '../Home/DanhsachCar/CarRentalList';
-import CarDetails from '../Home/DetailCar/DetailCar';
-import DangKyChuXe from '../Home/DangKyChuXe/DangKyChuXe'; 
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Header from './Header/Header'
+import CarRentalList from '../Home/DanhsachCar/CarRentalList'
+import CarDetails from '../Home/DetailCar/DetailCar'
+import DangKyChuXe from '../Home/DangKyChuXe/DangKyChuXe'
 
-function Home() {
-  const [userData, setUserData] = useState(null);
-  const [selectedBlogId, setSelectedBlogId] = useState(null);
+function Home () {
+  const [userData, setUserData] = useState(null)
+  const [selectedBlogId, setSelectedBlogId] = useState(null)
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('userId'));
+    const storedUser = JSON.parse(sessionStorage.getItem('user'))
     if (storedUser) {
-      setUserData(storedUser);
+      setUserData(storedUser)
     }
-  }, []);
-
+  }, [sessionStorage.getItem('user')])
+  console.log(userData?.user?._id)
   return (
     <div>
-      <Header
-        userRole={userData?.role || null}
-        userName={userData?.user?.hovaten || ''}
-      />
+      <Header />
       <main>
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={
               !selectedBlogId ? (
-                <CarRentalList onSelectBlog={(id) => setSelectedBlogId(id)} />
+                <CarRentalList onSelectBlog={id => setSelectedBlogId(id)} />
               ) : (
-                <CarDetails id={selectedBlogId} useId={userData?.user?._id}/>
+                <CarDetails id={selectedBlogId} userId={userData?.user?._id} />
               )
             }
           />
-          <Route path="/dangkychuxe" element={<DangKyChuXe />} /> 
+          <Route path='/dangkychuxe' element={<DangKyChuXe />} />
         </Routes>
       </main>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

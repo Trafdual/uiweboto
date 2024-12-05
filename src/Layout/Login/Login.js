@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.scss';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import './Login.scss'
 
-function Login({ onLoginSuccess }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [loginError, setLoginError] = useState('');
+function Login ({ onLoginSuccess }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [loginError, setLoginError] = useState('')
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const validateInputs = () => {
-    let valid = true;
+    let valid = true
     if (!email) {
-      setEmailError('Vui lòng nhập email');
-      valid = false;
+      setEmailError('Vui lòng nhập email')
+      valid = false
     } else {
-      setEmailError('');
+      setEmailError('')
     }
     if (!password) {
-      setPasswordError('Vui lòng nhập mật khẩu');
-      valid = false;
+      setPasswordError('Vui lòng nhập mật khẩu')
+      valid = false
     } else {
-      setPasswordError('');
+      setPasswordError('')
     }
-    return valid;
-  };
+    return valid
+  }
 
   const handleLogin = async () => {
     if (validateInputs()) {
@@ -34,63 +34,64 @@ function Login({ onLoginSuccess }) {
         const response = await fetch('http://localhost:8080/loginfull', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             email: email,
-            password: password,
-          }),
-        });
+            password: password
+          })
+        })
 
         if (response.ok) {
-          const data = await response.json();
+          const data = await response.json()
+          sessionStorage.setItem('user', JSON.stringify(data))
+
           if (data.role === 'admin') {
-            navigate('/admin');
+            navigate('/admin')
           } else if (data.role === 'user') {
-            // Call the onLoginSuccess prop with user data
-            onLoginSuccess(data);
-            navigate('/user', { state: { user: data } });
+            onLoginSuccess(data)
+            navigate('/user')
           } else {
-            alert(data.message || 'Đăng nhập không thành công');
+            alert(data.message || 'Đăng nhập không thành công')
           }
         } else {
-          setLoginError('Đăng nhập không thành công. Vui lòng kiểm tra lại.');
+          setLoginError('Đăng nhập không thành công. Vui lòng kiểm tra lại.')
         }
       } catch (error) {
-        console.error('Error:', error);
-        setLoginError('Lỗi kết nối đến máy chủ. Vui lòng thử lại sau.');
+        console.error('Error:', error)
+        setLoginError('Lỗi kết nối đến máy chủ. Vui lòng thử lại sau.')
       }
     }
-  };
+  }
 
   return (
-    <div className="register-container">
-      <h2 className="register-title">Đăng nhập</h2>
+    <div className='register-container'>
+      <h2 className='register-title'>Đăng nhập</h2>
       <input
-        type="email"
-        placeholder="Email"
-        name="email"
+        type='email'
+        placeholder='Email'
+        name='email'
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
       />
-      {emailError && <p className="error-message">{emailError}</p>}
+      {emailError && <p className='error-message'>{emailError}</p>}
       <input
-        type="password"
-        placeholder="Mật khẩu"
-        name="password"
+        type='password'
+        placeholder='Mật khẩu'
+        name='password'
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
       />
-      {passwordError && <p className="error-message">{passwordError}</p>}
-      {loginError && <p className="error-message">{loginError}</p>}
+      {passwordError && <p className='error-message'>{passwordError}</p>}
+      {loginError && <p className='error-message'>{loginError}</p>}
       <button onClick={handleLogin}>Đăng nhập</button>
-      <div className="divfooterdk">
+      <div className='divfooterdk'>
         <p>
-          Bạn chưa có tài khoản? <a href="/register">Đăng ký</a>
+          Bạn chưa có tài khoản? <a href='/register'>Đăng ký</a>
         </p>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

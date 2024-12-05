@@ -3,12 +3,10 @@ import HeaderNhanVien from './HeaderAdmin'
 
 import CheckInScreen from './CheckIn'
 import './HomeAdmin.scss'
-import { useLocation } from 'react-router-dom'
 import ThemXe from './ThemXe'
 
 const HomeAdmin = () => {
   const [currentPage, setCurrentPage] = useState('dat-lich')
-  const location = useLocation()
 
   const renderPageContent = () => {
     switch (currentPage) {
