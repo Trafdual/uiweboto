@@ -53,11 +53,13 @@ function Header () {
   return (
     <div className='header-container'>
       <div className='header-logo'>
-        <img src="mioto.png" alt="" />
+        <img src='mioto.png' alt='' />
       </div>
       <div className='header-links'>
         <a href='/'>Về Mioto</a>
-        <button onClick={handleBecomeCarOwner} className='btnttchuxe'>Trở thành chủ xe</button>
+        <button onClick={handleBecomeCarOwner} className='btnttchuxe'>
+          Trở thành chủ xe
+        </button>
 
         {!userData ? (
           <>
@@ -68,7 +70,12 @@ function Header () {
           </>
         ) : (
           <>
-            {/* <button onClick={() => setIsModalLichDat(true)}>Lịch đặt</button> */}
+            <button
+              onClick={() => setIsModalLichDat(true)}
+              className='login-button'
+            >
+              Lịch đặt
+            </button>
             <span>Welcome, {userData.user.hovaten}</span>
             {userData.role === 'admin' && (
               <a href='/admin' className='admin-link'>

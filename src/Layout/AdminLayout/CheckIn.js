@@ -53,7 +53,7 @@ const CheckInScreen = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <button className="btn-checked-list">
+        <button className="btn-checked-list" onClick={fetchCheckinList}>
           Danh Sách Đã Check In
         </button>
       </div>
